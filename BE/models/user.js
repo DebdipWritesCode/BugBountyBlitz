@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { create } = require("./bug");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -12,10 +13,21 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 6,
   },
-  role: {
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+  team_name: {
     type: String,
-    enum: ["user", "admin"],
-    default: "user",
+    required: true,
+  },
+  points: {
+    type: Number,
+    default: 0,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 

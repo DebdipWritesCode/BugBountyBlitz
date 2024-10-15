@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, isAdmin, team_name } = req.body;
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -41,7 +41,7 @@ exports.register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
-    const user = await User.create({ username, password: hashedPassword });
+    const user = await User.create({ username, password: hashedPassword, isAdmin, team_name });
 
     res.status(201).json({ message: "User created successfully", user });
   } catch (err) {
