@@ -1,4 +1,5 @@
 const Bug = require("../models/bug");
+const User = require("../models/user")
 
 exports.getAllBugs = async (req, res) => {
   const { userID } = req.query;
@@ -73,3 +74,27 @@ exports.deleteBug = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({ message: "Users fetched successfully", users });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+exports.changePoints = async (req, res) => {
+  const { userID, points } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(userID, { points }, { new: true });
+    if(!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
