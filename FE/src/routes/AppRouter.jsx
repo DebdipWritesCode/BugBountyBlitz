@@ -9,6 +9,18 @@ import ViewBugs from "../pages/ViewBugs";
 import Layout from "../components/Layout";
 import { isAuthenticated } from '../services/authService';
 
+const NotFound = () => {
+  return (
+    <div style={{ textAlign: 'center', padding: '2rem' }}>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you are looking for does not exist.</p>
+      <a href="/login" style={{ color: 'blue', textDecoration: 'underline' }}>
+        Go to Login
+      </a>
+    </div>
+  );
+};
+
 const AppRouter = () => {
   const PrivateRoute = ({ children }) => {
     return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -47,6 +59,8 @@ const AppRouter = () => {
             </Layout>
           </AdminRoute>
         } />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
