@@ -10,7 +10,7 @@ const BugsTable = ({ userId, isAdmin = false }) => {
 
     const fetchAllBugs = async () => {
         try {
-            const response = await axios.get("/bugs/getAllBugs", { userId: userId })
+            const response = await axios.get("/bugs/getAllBugs?userID=" + userId);
             if (response.status === 200) {
                 console.log(response)
             }
