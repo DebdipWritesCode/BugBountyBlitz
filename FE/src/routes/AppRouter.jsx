@@ -8,6 +8,7 @@ import ViewBugs from "../pages/ViewBugs";
 
 import Layout from "../components/Layout";
 import { isAuthenticated } from '../services/authService';
+import TeamBugs from '@/pages/TeamBugs';
 
 const NotFound = () => {
   return (
@@ -56,6 +57,13 @@ const AppRouter = () => {
           <AdminRoute>
             <Layout>
               <AdminPage />
+            </Layout>
+          </AdminRoute>
+        } />
+        <Route path="/admin/bugs/:team" element={
+          <AdminRoute>
+            <Layout>
+              <TeamBugs/>
             </Layout>
           </AdminRoute>
         } />

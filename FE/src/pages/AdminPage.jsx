@@ -58,7 +58,7 @@ const AdminPage = () => {
   return (
     <div className="p-6 font-roboto">
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard - Users</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {users.map((user) => (
           <div key={user._id} className="bg-white p-6 rounded-lg shadow-md">
@@ -78,6 +78,13 @@ const AdminPage = () => {
               >
                 {updating ? 'Updating...' : 'Update'}
               </button>
+              <a
+                className="ml-4 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                href={`/admin/bugs/teams`}
+                target="_blank"
+              >
+                View Bugs
+              </a>
             </div>
           </div>
         ))}
