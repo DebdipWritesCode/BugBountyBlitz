@@ -4,7 +4,6 @@ const User = require("../models/user")
 exports.getAllBugs = async (req, res) => {
   const { userID } = req.query;
   if(!userID) {
-    console.log(req.query)
     return res.status(400).json({ message: "User ID is required" });
   }
   try{

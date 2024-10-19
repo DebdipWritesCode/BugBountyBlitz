@@ -60,7 +60,7 @@ const AppRouter = () => {
             </Layout>
           </AdminRoute>
         } />
-        <Route path="/admin/bugs/:team" element={
+        <Route path="/admin/bugs/:team/:userId" element={
           <AdminRoute>
             <Layout>
               <TeamBugs/>

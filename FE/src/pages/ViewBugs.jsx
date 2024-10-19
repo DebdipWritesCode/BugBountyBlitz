@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { getToken, removeToken } from '@/services/authService'
 import { jwtDecode } from 'jwt-decode'
 import React, { useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 
 const ViewBugs = () => {
 
@@ -22,6 +22,7 @@ const ViewBugs = () => {
       } catch (err) {
         console.log("Error decoding token:", err);
         removeToken();
+        toast.error("Internal Server Error")
       }
     }
 

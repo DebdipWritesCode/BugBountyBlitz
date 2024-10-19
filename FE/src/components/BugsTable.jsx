@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import BugsTableContent from '@/components/BugsTableContent'
-import { Dialog } from '@/components/ui/dialog'
 import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import axios from '@/services/axiosInstance'
+import toast, { Toaster } from 'react-hot-toast'
 
 const BugsTable = ({ userId, isAdmin = false }) => {
 
-    const [loading, setLoading] = useState(true);
+    const [bugs, setBugs] = useState(null)
 
     const fetchAllBugs = async () => {
         try {
             const response = await axios.get("/bugs/getAllBugs?userID=" + userId);
             if (response.status === 200) {
-                console.log(response)
+                setBugs(response?.data)
             }
         } catch (err) {
             console.error(err);
             const message = err.response?.data?.message || 'Server Error';
-            // toast.error(message);
+            toast.error(message);
         }
     }
 
@@ -27,30 +27,33 @@ const BugsTable = ({ userId, isAdmin = false }) => {
 
     return (
         <>
-            <Dialog>
-                <Table className="w-[80vw]">
-                    <TableCaption>A list of submitted bugs by team name</TableCaption>
-                    <TableHeader>
-                        <TableRow className="uppercase">
-                            <TableHead>Bug Title</TableHead>
-                            <TableHead>Repository Name</TableHead>
-                            <TableHead>PR Link</TableHead>
-                            <TableHead>Steps to Reproduce</TableHead>
-                            <TableHead>Expected Behaviour</TableHead>
-                            <TableHead>Actual Behaviour</TableHead>
-                            <TableHead>Additional Comments</TableHead>
-                            <TableHead>Screenshots/logs</TableHead>
-                            {!isAdmin && <TableHead>Actions</TableHead>}
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        <BugsTableContent isAdmin={isAdmin} />
-                        <BugsTableContent isAdmin={isAdmin} />
-                        <BugsTableContent isAdmin={isAdmin} />
-                        {/* <div>Loading...</div> */}
-                    </TableBody>
-                </Table>
-            </Dialog>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
+            <Table className="w-[80vw]">
+                <TableCaption>A list of submitted bugs by team name</TableCaption>
+                <TableHeader>
+                    <TableRow className="uppercase">
+                        <TableHead>Bug Title</TableHead>
+                        <TableHead>Repository Name</TableHead>
+                        <TableHead>PR Link</TableHead>
+                        <TableHead>Steps to Reproduce</TableHead>
+                        <TableHead>Expected Behaviour</TableHead>
+                        <TableHead>Actual Behaviour</TableHead>
+                        <TableHead>Additional Comments</TableHead>
+                        <TableHead>Screenshots/logs</TableHead>
+                        {!isAdmin && <TableHead>Actions</TableHead>}
+                    </TableRow>
+                </TableHeader>
+                {bugs && <TableBody>
+                    {bugs?.map((bug) =>
+                        <>
+                            <BugsTableContent bugId={bug._id} bugTitle={bug.title} repositoryName={bug.repository_name} prLink={bug.pr_link} expectedBehaviour={bug.expected_behavior} actualBehaviour={bug.actual_behavior} stepsToReproduce={bug.steps_to_reproduce} screenshots={bug.screenshot_url} additionalComments={bug.additional_comments} isAdmin={isAdmin} key={bug._id} />
+                        </>
+                    )}
+                </TableBody>}
+            </Table>
         </>
     )
 }

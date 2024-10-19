@@ -11,6 +11,7 @@ const AdminPage = () => {
     try {
       const response = await axios.get('/bugs/getAllUsers');
       setUsers(response.data.users);
+      console.log(response.data)
       setLoading(false);
     } catch (error) {
       setError('Failed to fetch users');
@@ -80,7 +81,7 @@ const AdminPage = () => {
               </button>
               <a
                 className="ml-4 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                href={`/admin/bugs/teams`}
+                href={`/admin/bugs/${user.team_name}/${user._id}`}
                 target="_blank"
               >
                 View Bugs
