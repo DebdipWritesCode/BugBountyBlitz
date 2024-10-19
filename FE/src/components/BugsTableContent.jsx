@@ -37,7 +37,7 @@ const BugsTableContent = ({ bugId,bugTitle, repositoryName, prLink, stepsToRepro
                         <TableCell className="max-w-5 truncate">{additionalComments}</TableCell>
                         <TableCell className="max-w-5 truncate">{screenshots}</TableCell>
                         {!isAdmin && <TableCell className="text-center">
-                            <Button className="my-5 mr-2">Edit</Button>
+                            {/* <Button className="my-5 mr-2">Edit</Button> */}
                             <Button className="z-50" variant="destructive" onClick={deleteBug}>Delete</Button>
                         </TableCell>}
                     </TableRow>
