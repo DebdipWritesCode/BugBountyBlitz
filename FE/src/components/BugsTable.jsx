@@ -4,7 +4,7 @@ import { Table, TableBody, TableCaption, TableHead, TableHeader, TableRow } from
 import axios from '@/services/axiosInstance'
 import toast, { Toaster } from 'react-hot-toast'
 
-const BugsTable = ({ userId, isAdmin = false }) => {
+const BugsTable = ({ userId, searchTitle, isAdmin = false }) => {
 
     const [bugs, setBugs] = useState(null)
 
@@ -48,7 +48,7 @@ const BugsTable = ({ userId, isAdmin = false }) => {
                 </TableHeader>
                 {bugs && <TableBody>
                     {bugs?.map((bug) =>
-                        <>
+                        (!searchTitle || bug.title.includes(searchTitle)) && <>
                             <BugsTableContent bugId={bug._id} bugTitle={bug.title} repositoryName={bug.repository_name} prLink={bug.pr_link} expectedBehaviour={bug.expected_behavior} actualBehaviour={bug.actual_behavior} stepsToReproduce={bug.steps_to_reproduce} screenshots={bug.screenshot_url} additionalComments={bug.additional_comments} isAdmin={isAdmin} key={bug._id} />
                         </>
                     )}

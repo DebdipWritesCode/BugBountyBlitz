@@ -1,5 +1,4 @@
 import BugsTable from '@/components/BugsTable'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { getToken, removeToken } from '@/services/authService'
 import { jwtDecode } from 'jwt-decode'
@@ -10,6 +9,8 @@ const ViewBugs = () => {
 
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [searchTitle, setSearchTitle] = useState("");
 
   useEffect(() => {
 
@@ -42,12 +43,17 @@ const ViewBugs = () => {
             Your Bugs
           </p>
           <div className="flex items-center justify-start">
-            <Input type="text" placeholder="Search Submitted Bugs" className="w-56 mr-3" />
-            <Button>Search</Button>
+            <Input
+              className="w-64 mr-3"
+              placeholder="Search Submitted Bugs by Bug Title"
+              type="text"
+              value={searchTitle}
+              onChange={(e)=>setSearchTitle(e.target.value)}
+            />
           </div>
         </div>
         <div>
-          {loading ? (<div>Loading all bugs...</div>) : (<BugsTable userId={userId} />)}
+          {loading ? (<div>Loading all bugs...</div>) : (<BugsTable searchTitle={searchTitle} userId={userId} />)}
         </div>
       </div>
     </>
