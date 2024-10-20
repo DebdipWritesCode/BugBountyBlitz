@@ -1,17 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../services/axiosInstance';
+import { getToken } from '@/services/authService';
+import { jwtDecode } from 'jwt-decode';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [updating, setUpdating] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const token = getToken();
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken?.isAdmin) {
+        setIsAdmin(true);
+        fetchUsers();
+      } else {
+        setIsAdmin(false);
+        setLoading(false);
+      }
+    } else {
+      setIsAdmin(false);
+      setLoading(false);
+    }
+  }, [token]);
 
   const fetchUsers = async () => {
     try {
       const response = await axios.get('/bugs/getAllUsers');
       setUsers(response.data.users);
-      console.log(response.data)
       setLoading(false);
     } catch (error) {
       setError('Failed to fetch users');
@@ -44,12 +64,12 @@ const AdminPage = () => {
     updatePoints(userId, points);
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!isAdmin) {
+    return <div>Admin access not provided</div>;
   }
 
   if (error) {
