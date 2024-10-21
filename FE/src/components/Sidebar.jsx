@@ -34,6 +34,12 @@ const Sidebar = ({ isAdmin }) => {
                   Submit Bug
                 </NavLink>
               </li>
+              <li>
+                <NavLink to="/repos" className={linkClasses}>
+                  <FiSend className="mr-3" />
+                   Repositories
+                </NavLink>
+              </li>
             </>
           )}
         </ul>

@@ -22,7 +22,6 @@ app.use("/auth", authRoutes);
 app.use("/bugs", bugRoutes);
 
 const startServer = async () => {
-  console.log("Hello",process.env.MONGODB_URI)
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected to MongoDB");

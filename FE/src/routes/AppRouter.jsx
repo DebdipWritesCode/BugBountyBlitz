@@ -9,6 +9,7 @@ import ViewBugs from "../pages/ViewBugs";
 import Layout from "../components/Layout";
 import { isAuthenticated } from '../services/authService';
 import TeamBugs from '@/pages/TeamBugs';
+import RepoPage from '@/pages/RepoPage';
 
 const NotFound = () => {
   return (
@@ -45,6 +46,14 @@ const AppRouter = () => {
           </PrivateRoute>
         } />
 
+        <Route path="/repos" element={
+          <PrivateRoute>
+            <Layout>
+              <RepoPage />
+            </Layout>
+          </PrivateRoute>
+        } />
+
         <Route path="/submit" element={
           <PrivateRoute>
             <Layout>
@@ -63,7 +72,7 @@ const AppRouter = () => {
         <Route path="/admin/bugs/:team/:userId" element={
           <AdminRoute>
             <Layout>
-              <TeamBugs/>
+              <TeamBugs />
             </Layout>
           </AdminRoute>
         } />

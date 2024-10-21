@@ -1,7 +1,8 @@
 import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Toaster } from 'react-hot-toast'
 
-const RepoTable = () => {
+const RepoTable = ({ isAdmin }) => {
     return (
         <>
             <Toaster

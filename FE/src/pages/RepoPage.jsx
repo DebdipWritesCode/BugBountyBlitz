@@ -3,7 +3,7 @@ import RepoTable from '@/components/RepoTable'
 
 const RepoPage = () => {
     return (
-        <RepoTable/>
+        <RepoTable isAdmin={true}/>
     )
 }
 
