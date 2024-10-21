@@ -38,18 +38,15 @@ const BugsTable = ({ userId, searchTitle, isAdmin = false }) => {
                         <TableHead>Bug Title</TableHead>
                         <TableHead>Repository Name</TableHead>
                         <TableHead>PR Link</TableHead>
-                        <TableHead>Steps to Reproduce</TableHead>
-                        <TableHead>Expected Behaviour</TableHead>
-                        <TableHead>Actual Behaviour</TableHead>
-                        <TableHead>Additional Comments</TableHead>
-                        <TableHead>Screenshots/logs</TableHead>
+                        <TableHead>Issue ID</TableHead>
+                        <TableHead>Description</TableHead>
                         {!isAdmin && <TableHead>Actions</TableHead>}
                     </TableRow>
                 </TableHeader>
                 {bugs && <TableBody>
                     {bugs?.map((bug) =>
                         (!searchTitle || bug.title.includes(searchTitle)) && <>
-                            <BugsTableContent bugId={bug._id} bugTitle={bug.title} repositoryName={bug.repository_name} prLink={bug.pr_link} expectedBehaviour={bug.expected_behavior} actualBehaviour={bug.actual_behavior} stepsToReproduce={bug.steps_to_reproduce} screenshots={bug.screenshot_url} additionalComments={bug.additional_comments} isAdmin={isAdmin} key={bug._id} />
+                            <BugsTableContent bugId={bug._id} bugTitle={bug.title} repositoryName={bug.repository_name} prLink={bug.pr_link} issueID={bug.issue_id} description={bug.description} isAdmin={isAdmin} key={bug._id} />
                         </>
                     )}
                 </TableBody>}

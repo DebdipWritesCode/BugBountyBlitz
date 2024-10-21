@@ -32,13 +32,19 @@ exports.getBug = async (req, res) => {
 };
 
 exports.createBug = async (req, res) => {
-  const { title, repository_name, expected_behavior, actual_behavior, steps_to_reproduce, screenshot_url, pr_link, additional_comments } = req.body;
+  const { title, repository_name, pr_link, description, issue_id } = req.body;
   const created_by = req.user.id;
   try {
-    const bug = await Bug.create({ title, repository_name, expected_behavior, actual_behavior, steps_to_reproduce, screenshot_url, pr_link, additional_comments, created_by });
+    const bug = await Bug.create({
+      title,
+      repository_name,
+      pr_link,
+      description,
+      issue_id,
+      created_by
+    });
     res.status(201).json(bug);
-  }
-  catch(err) {
+  } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });
   }
