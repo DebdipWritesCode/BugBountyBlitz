@@ -26,7 +26,7 @@ const BugsTableContent = ({ bugId, bugTitle, repositoryName, prLink, issueID, de
         <>
             <Dialog>
                 <DialogTrigger asChild>
-                    <TableRow>
+                    <TableRow className="hover:cursor-pointer">
                         <TableCell className="max-w-[150px] truncate">{bugTitle}</TableCell>
                         <TableCell className="max-w-[150px] truncate">{repositoryName}</TableCell>
                         <TableCell className="max-w-[150px] truncate">
@@ -37,7 +37,7 @@ const BugsTableContent = ({ bugId, bugTitle, repositoryName, prLink, issueID, de
                         <TableCell className="max-w-[150px] truncate">{issueID}</TableCell>
                         <TableCell className="max-w-[150px] truncate">{description}</TableCell>
                         {!isAdmin && (
-                            <TableCell className="text-center">
+                            <TableCell className="text-left">
                                 <Button variant="destructive" onClick={deleteBug}>Delete</Button>
                             </TableCell>
                         )}

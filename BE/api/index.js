@@ -6,7 +6,7 @@ require("dotenv").config();
 const app = express();
 
 const corsOptions = {
-  origin: 'https://bug-bounty-blitz-fe.vercel.app',
+  origin: process.env.CORS_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
